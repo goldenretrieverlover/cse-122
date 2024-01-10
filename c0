@@ -1,0 +1,109 @@
+import java.util.*;
+
+public class Music {
+    public static final String NOTES = "CDEFGAB";
+    public static final String SHARP = "♯";
+    public static final String FLAT = "♭";
+    
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+        String[][] song = composeSong(scanner);
+
+        System.out.println(Arrays.toString(song));
+
+        String[] mostCommonNaturalsArray = mostCommonNaturals(song);
+
+        System.out.println(Arrays.toString(mostCommonNaturalsArray));
+    }
+
+    // TODO: copy and paste the composeSong method and helper methods here
+    public static String[][] composeSong(Scanner scanner) {
+        int numMelodies = promptingMelodies(scanner);
+        int numNotes = promptingNotes(scanner);
+
+        String[][] song = new String[numMelodies][numNotes];
+        System.out.println();
+
+        for (int i = 0; i < numMelodies; i++) {
+
+            System.out.println("Composing melody #" + (i+1));
+
+            for (int j = 0; j < numNotes; j++) {
+
+                System.out.print("  Enter note #" + (j+1) + ": ");
+                String note = scanner.next();
+                song[i][j] = note;
+                // String[] mostCommonNaturalsArray = mostCommonNaturals(song);
+
+            }
+            System.out.println();
+
+        }
+        // String[] mostCommonNaturalsArray = mostCommonNaturals(song);
+        return song;
+    }
+
+    public static String[] mostCommonNaturals(String[][] song) {
+        int numMelodies = song.length;
+        String[] mostCommonNaturalsArray = new String[numMelodies];
+        // int[] counts = {NOTES.length()};
+        int[] counts = new int[NOTES.length()];
+        int max = 0;
+        System.out.println();
+        for (int i = 0; i < numMelodies; i++) { // iterate through mostCommonNaturalsArray, numMelodies times
+            // int max = 0;
+            String commonPerMelody = mostCommonNaturalsArray[i]; // the most common Natural for the current melody (should be null for all melody places like {null, null, null, null} until later updates)
+
+            int numNotes = song[i].length;
+            for (int j = 0; j < numNotes; j++) { // iterate through numNotes times
+
+                String current = song[i][j]; // focus on each individual value of the 2d song
+
+                if (current.length() < 2) { // applies only if it is only one character long (a natural)
+
+                    // for (int k = 0; k < NOTES.length(); k++) { // iterate through NOTES list a length number of times (i think this is unnecessary tbh)
+
+                        char first = current.charAt(0); // focus on the first character of the current note (the only character ) ( is this a good idea? idk)
+
+                        int index = NOTES.indexOf(first); // what is the index of this character ... in NOTES. USED TO... 
+
+                        counts[index]++; // UPDATE THE COUNT AT THAT INDEX (WHICH SHOULD BE THE SAME AT COUNTS AS IT IS IN NOTES).
+
+                        // 
+                        if (counts[index]++ > max) { // applies only if this count is the highest yet 
+
+                            commonPerMelody = NOTES.substring(index, index + 1); // replaces the null value in {null, null, null} representing the most common naturals in all of the melodies, with the NOTE at the helpful index of the note at that place in the 2d array. NOT sure if this is the right place to put this
+                        }
+
+                        // int max = Math.max(counts[helper], max); // 
+                        
+                        // UPDATE THE MOSTCOMMONNATURALSARRAY AT THAT INDEX (WHICH SHOULD BE EQUAL TO THE I, NUMBER OF THE CURRENT MELODY). .. AND SHOULD UPDATE EVERY SONG... IFFFFFF!!!! THE COUNT IS CURRENTLY LARGER THAN IT WAS... SHOULD TEST IF MEETS CONDITIONS ONCE EVERY NOTE (J)... 
+
+                                max = Math.max(counts[index], max); // updates the current highest count 
+                        }
+                    }
+                }
+            // int mostCommonCurrently = counts[max];
+            // mostCommonNaturalsArray[i] = NOTES[mostCommonCurrently];
+            // mostCommonNaturalsArray[i] = NOTES.substring(mostCommonCurrently, mostCommonCurrently + 1);
+            return mostCommonNaturalsArray;
+        }
+
+    public static int promptingMelodies(Scanner scanner) {
+        System.out.print("Enter the number of melodies: ");
+        int numMelodies = scanner.nextInt();
+
+        return numMelodies;
+    }
+
+    public static int promptingNotes(Scanner scanner) {
+        System.out.print("Enter the length of each melody: ");
+        int numNotes = scanner.nextInt();
+
+        return numNotes;
+    }
+
+
+    // TODO: choose ONE creative extension option to implement here
+    
+}
