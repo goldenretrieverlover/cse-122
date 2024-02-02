@@ -1,0 +1,185 @@
+// Name: Ollie Le
+// Date: 02-01-2024
+// Class: CSE 122
+// TA: Logan Dinh & Ken Oh
+// Class header: This class is a music playlist. Songs can be added, played, and deleted from this playlist. Once played, songs are added to the history, which can be cleared.
+
+// Watch out for code that is extraneous -- this is something graders look out for
+
+
+
+import java.util.*;
+import java.io.*;
+
+public class MusicPlaylist {
+
+    public static void main(String[] args) {
+
+    System.out.println("Welcome to the CSE 122 Music Playlist!");
+    System.out.println("(A) Add song");
+    System.out.println("(P) Play song");
+    System.out.println("(Pr) Print history");
+    System.out.println("(C) Clear history");
+    System.out.println("(D) Delete from history");
+    System.out.println("(Q) Quit");
+    System.out.println();
+
+// (A) Add song
+// (P) Play song
+// (Pr) Print history
+// (C) Clear history
+// (D) Delete from history
+// (Q) Quit
+
+// Enter your choice: A
+// Enter song name: Truth Hurts
+// Successfully added Truth Hurts
+
+// any time you do a stack, it automatically reverses the order
+// any time you do a queue, you automatically preserve the order
+
+// ")
+    Scanner console = new Scanner(System.in);
+    Stack<String> history = new Stack<>();
+    Queue<String> playlist = new LinkedList<>();
+    
+    System.out.print("Enter your choice: ");
+    String input = console.nextLine();
+    
+
+    while (!input.equalsIgnoreCase("q")) {
+        if (input.equalsIgnoreCase("a")) {
+            System.out.print("Enter song name: ");
+            String songName = console.nextLine();
+            playlist.add(songName);
+            System.out.println("Successfully added " + songName);
+
+        } else if (input.equalsIgnoreCase("p")) {
+            if (playlist.isEmpty()) {
+                throw new IllegalStateException("IllegalStateException was Successfully thrown!");
+            }
+            // throw IllegalStateException if no parameters are passed
+            // System.out.println("Enter song name: ");
+            String songName = playlist.remove();
+            history.add(songName);
+            System.out.println("Playing song: " + songName);
+
+        } else if (input.equalsIgnoreCase("pr")) {
+            if (history.isEmpty()) {
+                throw new IllegalStateException("IllegalStateException was Successfully thrown!");
+            }
+            // throw IllegalStateException if history is empty
+            // create an auxiliary stack/queue 
+            // add to stack/queue after removing it, to restore it to its original existence
+            Stack<String> auxiliary = new Stack<>();
+            // decide whether a for loop or while loop is necessary
+            int size = history.size();
+            for (int i = 0; i < size; i++) {
+                String value = history.pop();
+                auxiliary.push(value);
+                System.out.println("    " + value);
+            }
+            int auxSize = auxiliary.size();
+            for (int i = 0; i < auxSize; i++) {
+                history.push(auxiliary.pop());
+            }
+
+        } else if (input.equalsIgnoreCase("c")) {
+            history.clear();
+            // while (!history.isEmpty()) {
+            //     history.pop(); // will remove just the last one at the end of the list
+            // }
+
+        } else if (input.equalsIgnoreCase("d")) {
+            System.out.println("A positive number will delete from recent history.");
+            System.out.println("A negative number will delete from the beginning of history.");
+            System.out.print("Enter number of songs to delete: ");
+            String entry = console.nextLine();
+            int num = Integer.parseInt(entry); 
+            if (history.size() < Math.abs(num)) {
+                throw new IllegalArgumentException("IllegalArgumentException was Successfully thrown!");
+            }
+            if (num > 0) {
+                Stack<String> auxiliary = new Stack<>();
+                int size = history.size();
+                for (int i = 0; i < num; i++) {
+                    history.pop();
+                }
+                // for (int i = 0; i < size; i++) {
+                //     auxiliary.push(history.pop());
+                //     // // should not add back everything, should delete some
+                // }
+                // int auxSize = auxiliary.size();
+                // for (int i = 0; i < num; i++) {
+                //         history.push(auxiliary.pop());
+                //         // // should not add back everything, should delete some
+                // }
+            } else if (num < 0) {
+                num = Math.abs(num);
+                Stack<String> auxiliary = new Stack<>();
+                // decide whether a for loop or while loop is necessary
+                int size = history.size();
+                for (int i = 0; i < size; i++) {
+                    auxiliary.push(history.pop());
+                    // // should not add back everything, should delete some
+                }
+                for (int i = 0; i < num; i++) {
+                    auxiliary.pop();
+                }
+                int auxSize = auxiliary.size();
+                for (int i = 0; i < auxSize; i++) {
+                    history.push(auxiliary.pop());
+                }
+                // for (int i = 0; i < auxSize - num; i++) {
+                //         history.push(auxiliary.pop());
+                //         // // should not add back everything, should delete some
+                //         // clear the queue
+                //         // move the stuff from the stack to the queue
+                //         // and then move the stuff from the queue to the stack
+                // }
+
+                // auxiliary.clear();
+
+                // System.out.println("history: " + history);
+                // System.out.println("auxiliary: " + auxiliary);
+                
+                // size = history.size();
+                // for (int i = 0; i < size; i++) {
+                //     auxiliary.push(history.pop());
+                // }
+
+                // System.out.println("history: " + history);
+                // System.out.println("auxiliary: " + auxiliary);
+
+
+                // auxSize = auxiliary.size();
+                // for (int i = 0; i < auxSize; i++) {
+                //     history.push(auxiliary.pop());
+                // }
+                //     // history.add();
+                    //   System.out.println("history: " + history);
+            }
+
+
+        } else {
+            
+        }
+        
+        System.out.println();
+        System.out.println();
+        System.out.println("(A) Add song");
+        System.out.println("(P) Play song");
+        System.out.println("(Pr) Print history");
+        System.out.println("(C) Clear history");
+        System.out.println("(D) Delete from history");
+        System.out.println("(Q) Quit");
+        System.out.println();
+        System.out.print("Enter your choice: ");
+        input = console.nextLine();
+    }
+    }
+    
+    public static void method () {
+        
+    }
+}
