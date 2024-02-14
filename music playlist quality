@@ -1,0 +1,282 @@
+// Name: Ollie Le
+// Date: 02-01-2024
+// Class: CSE 122
+// TA: Logan Dinh & Ken Oh
+// Class header: This class is a music playlist. Songs can be added, played, 
+// and deleted from this playlist. Once played, songs are added to the 
+// history, which can be cleared.
+
+// Watch out for code that is extraneous -- this is something graders look 
+// out for 
+// Maybe add back comments, especially explaining ones that are helpful, 
+// like pseudocode?
+
+
+import java.util.*;
+import java.io.*;
+
+public class MusicPlaylist {
+
+    public static void main(String[] args) {
+
+    System.out.println("Welcome to the CSE 122 Music Playlist!");
+    printMenu(); // delivers options
+
+    Scanner console = new Scanner(System.in); // now can accept input
+    Stack<String> history = new Stack<>(); // creates history
+    Queue<String> playlist = new LinkedList<>(); // creates playlist 
+    
+    String input = choose(console); // accepts input
+
+    while (!input.equalsIgnoreCase("q")) {
+        if (input.equalsIgnoreCase("a")) {
+            add(console, playlist); // adds song to playlist
+
+        } else if (input.equalsIgnoreCase("p")) {
+            playSong(playlist, history); // 'plays' song
+
+        } else if (input.equalsIgnoreCase("pr")) {
+            printHistory(history); // prints history to the console
+
+        } else if (input.equalsIgnoreCase("c")) {
+            history.clear(); // clears history
+
+        } else if (input.equalsIgnoreCase("d")) {
+            delete(console, history); // deletes history, user can input 
+            // a desired value to determine how many songs to delete
+
+        } 
+        System.out.println();
+        System.out.println();
+
+        printMenu(); // delivers options again
+
+        input = choose(console); // accepts input
+    }
+    }
+    
+
+// HELPER METHODS BEGIN BELOW THIS LINE
+
+    // boy does that make life easier!
+
+    // public static void method () {
+
+    // }
+
+    /* Behavior: 
+    Exceptions:
+    Returns:
+    Parameters:
+    */
+
+// HELPER METHODS BEGIN BELOW THIS LINE
+    
+    /* Behavior: Delivers options to the console
+        Exceptions: n/a
+        Returns: n/a
+        Parameters: n/a
+        */
+    public static void printMenu() {
+        System.out.println("(A) Add song");
+        System.out.println("(P) Play song");
+        System.out.println("(Pr) Print history");
+        System.out.println("(C) Clear history");
+        System.out.println("(D) Delete from history");
+        System.out.println("(Q) Quit");
+        System.out.println();
+    }
+
+    /* Behavior: Accepts choice from menu
+        Exceptions: n/a
+        Returns: Returns user input as a String
+        Parameters: Accepts Scanner to take input
+        */  
+    public static String choose (Scanner console) { 
+        System.out.print("Enter your choice: ");
+        String input = console.nextLine();
+        return input;
+    }
+    
+    /* Behavior: Deletes history, user can input a desired value to determine
+    // how many songs to delete. Entering a positive number will delete from the
+    // top of the history (or the most recent history), while entering a 
+    // negative number/input will delete from the bottom of the history (or the 
+    // chronologically first history).
+    // 6: documented difference between negative and positive input so client 
+    // knows
+        Exceptions: Should throw IllegalArgumentException if history is shorter
+        // than the number of songs to be removed from it
+        Returns: n/a 
+        Parameters: Accepts Scanner to take input, Stack history to be altered
+        */ 
+    public static void delete (Scanner console, Stack<String> 
+            history) {
+        int num = deleteMsg(console); 
+        tossArguException(history, num); // 5: throws exception BEFORE creating a 
+        // (potentially unnecessary) stack object
+        Stack<String> auxiliary = new Stack<>();
+        if (num > 0) {
+            removeTopValues(history, num); // 4: removed unnecessary auxiliary 
+            // parameter here, too
+        } else if (num < 0) {
+            removeBottValues(history, auxiliary, num); 
+        }
+    }
+
+    /* Behavior: Accepts a desired value to determine how many songs to delete
+        Exceptions: n/a
+        Returns: Returns number of songs to delete as an int
+        Parameters: Accepts console to take input
+        */  
+    public static int deleteMsg (Scanner console) {
+        System.out.println("A positive number will delete from recent history.");
+        System.out.print("A negative number will delete from the beginning");
+        System.out.println(" of history.");
+        System.out.print("Enter number of songs to delete: ");
+        String entry = console.nextLine();
+        int num = Integer.parseInt(entry); 
+        return num;
+    }
+
+
+    /* Behavior: Moves contents of one stack to another stack
+       Exceptions: n/a
+       Returns: n/a
+       Parameters: Accepts Stack auxiliary and Stack history to be altered
+       */ 
+    public static void stackToStack (Stack<String> s1, Stack<String> 
+            s2) { 
+        int size = s2.size(); // 2: changed auxToHist and histToAux to 
+        // one singular helper method that covers stack-to-stack movements
+        for (int i = 0; i < size; i++) {
+            s1.push(s2.pop());
+        }
+    }
+
+
+    /* Behavior: Adds song to playlist, user can input a String song name
+        Exceptions: n/a
+        Returns: n/a
+        Parameters: Accepts Scanner to take input, adds to Queue playlist
+        */ 
+    public static void add (Scanner console, Queue<String> playlist) {
+        System.out.print("Enter song name: "); 
+        String songName = console.nextLine();
+        playlist.add(songName);
+        System.out.println("Successfully added " + songName);  
+    }
+
+
+    /* Behavior: Prints history / songs played
+        Exceptions: Should toss IllegalStateException if history is empty
+        Returns: n/a
+        Parameters: Accepts a Stack history (to be printed)
+        */
+    public static void printHistory (Stack<String> history) { 
+        emptyTossHistory(history);
+        Stack<String> auxiliary = new Stack<>();
+        int size = history.size();
+        for (int i = 0; i < size; i++) {
+            String value = history.pop(); //  Prints history one by one
+            auxiliary.push(value);
+            System.out.println("    " + value);
+        }
+        stackToStack (auxiliary, history); // Returns values to history
+        // 3: changed auxToHist and histToAux occurrences to stack-to-stack
+        // helper method usages
+        // 7: Made spacing more consistent
+    }
+
+
+    /* Behavior: Plays song from playlist (adding to history in the process)
+        Exceptions: Should throw an IllegalStateException if playlist is empty
+        Returns: n/a
+        Parameters: Takes Queue 'playlist' and Stack 'history' 
+        // is this parameters comment specific enough?
+        // Takes Queue and Stack to be altered
+        */ 
+    public static void playSong (Queue<String> playlist, Stack<String> history) {
+        emptyToss (playlist);
+        String songName = playlist.remove();
+        history.add (songName);
+        System.out.println("Playing song: " + songName);
+    }
+
+
+    /* Behavior: Throws IllegalStateException when playlist is empty
+        Exceptions: Throws an IllegalStateException if the parameter
+        // passed in is empty
+        Returns: n/a
+        Parameters: Takes the parameter String queue playlist to be checked
+        // for emptiness
+        */
+    public static void emptyTossHistory (Stack<String> history) {
+        if (history.isEmpty()) {
+            String toss = "IllegalStateException was Successfully thrown!";
+            throw new IllegalStateException(toss);
+        }
+    }
+
+     /* Behavior: Throws IllegalStateException when playlist is empty
+        Exceptions: Throws an IllegalStateException if the parameter
+        // passed in is empty
+        Returns: n/a
+        Parameters: Takes the parameter String queue playlist to be checked
+        // for emptiness
+        */ // is this helper method redundant? (same question with next)
+    public static void emptyToss (Queue<String> playlist) {
+        if (playlist.isEmpty()) {
+            String toss = "IllegalStateException was Successfully thrown!";
+            throw new IllegalStateException(toss);
+        }
+    }
+
+
+
+    /* Behavior: Throws IllegalArgumentException when there aren't enough values
+        // To match the user's request for deletions
+        Exceptions: Throws an IllegalArgumentException if the history
+        // passed through is shorter than the expected number of values
+        // to be removed
+        Returns: n/a
+        Parameters: Compares the length of String Stack history to the integer num
+        */ 
+    public static void tossArguException (Stack<String> history, int num) {
+        if (history.size() < Math.abs(num)) {
+            String toss = "IllegalArgumentException was Successfully thrown!";
+            throw new IllegalArgumentException(toss);
+        }
+    }
+
+    /* Behavior: Removes the most recent songs from the history
+        Exceptions: n/a
+        Returns: n/a
+        Parameters: Affecting the String Stack called history; 
+        // The user can input an integer num of values to be deleted
+        */
+    public static void removeTopValues (Stack<String> history, int num) { 
+        // 1: removed aux
+        int size = history.size();
+        for (int i = 0; i < num; i++) { // remove top values
+            history.pop();
+        }
+    }
+
+    /* Behavior: Removes the chronologically-first songs from the history
+        Exceptions: n/a
+        Returns: n/a
+        Parameters: Affecting the String Stack called history; 
+        // The user can input an integer num of values to be deleted
+        */ 
+    public static void removeBottValues (Stack<String> history, Stack<String> 
+            auxiliary, int num) {
+        num = Math.abs(num);
+        stackToStack(auxiliary, history);
+        for (int i = 0; i < num; i++) { // remove top-for-now (bottom) values
+            auxiliary.pop();
+        }
+        stackToStack(auxiliary, history);
+    }
+
+}
