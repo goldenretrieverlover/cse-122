@@ -1,0 +1,101 @@
+import java.util.*;
+
+public class PatternFor {
+    public static final String GREEN = "🟩";
+    public static final String YELLOW = "🟨";
+    public static final String GRAY = "⬜";
+
+    public static void main(String[] args) {
+        System.out.println(patternFor("abbey", "bebop"));
+        System.out.println(patternFor("abbey", "ether"));
+        System.out.println(patternFor("abbey", "keeps"));
+        System.out.println(patternFor("bebop", "abbey"));
+    }
+
+    public static String patternFor(String word, String guess) {
+        
+        return "";
+    }
+
+    public static char mostFrequentStart(Set<String> words) {
+        // Build up the word families first
+        // Our Set: ["hello", "goodbye", "library", "literary", "little", "repel"]
+        // Want to create this Map from it: {r=1, g=1, h=1, l=3}
+        Map<Character, Integer> counts = new HashMap<>();
+        for (String word : words) {
+            char firstChar  = word.charAt(0);
+            if (counts.containsKey(firstChar)) {
+                counts.put(firstChar, counts.get(firstChar) + 1);
+            } else {
+                counts.put(firstChar, 1);
+            }
+        }
+        System.out.println("Our counts Map: " + counts);
+
+        // Find the largest family
+        // In this case, it would be the "l" family
+        int maxCount = 0;    // Know all counts should be >= 0
+        char maxChar = '\0';  // Dummy character for initialization
+        for (char firstChar : counts.keySet()) {
+            if (counts.get(firstChar) > maxCount) {
+                maxCount = counts.get(firstChar);
+                maxChar = firstChar;
+            }
+        }
+        
+        Iterator<String> iter = words.iterator();
+        while (iter.hasNext()) {
+            String word = iter.next();
+            char firstChar = word.charAt(0);
+            if (firstChar != maxChar) { // or firstChar != maxChar
+                    iter.remove();
+                } 
+        }
+        
+        // Finally return!
+        return maxChar;
+    }
+
+    // make a for loop for every character you have to replace
+    public static String replaceMaxCard(String playerHand) {
+        Map<String, Integer> cardCounts = new TreeMap<>();
+        // for each char in input String   
+        for (int i = 0; i < playerHand.length(); i++) {
+            String card = "" + playerHand.charAt(i);
+            // if not in map 
+            if (!cardCounts.containsKey(card)) {
+                cardCounts.put(card, 1);
+            } else {
+                int currentCount = cardCounts.get(card);
+                cardCounts.put(card, currentCount + 1);
+            }
+                // set count to 1
+            // if in map
+                // update count ++
+        }
+        // for each card in our map
+        int maxCount = 0;
+        String maxCard = "";
+        for (String card : cardCounts.keySet()) {
+            int count = cardCounts.get(card);
+            if (count > maxCount) {
+                maxCard = card;
+                maxCount = count;
+            }
+            // check to see if it's the max count
+                // if it is the max count -> update the count
+        }
+        String output = "";
+        for (int i = 0; i < playerHand.length(); i++) {
+            String current = "" + playerHand.charAt(i);
+            if (current.equals(maxCard)) {
+                output += JOKER;
+            } else {
+                output += current;
+            }
+        }
+        return output;
+    }
+
+    
+}
