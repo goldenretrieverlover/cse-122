@@ -1,0 +1,36 @@
+import java.util.*;
+
+public class Reverse {
+    public static void main(String[] args) {
+        Map<Integer, String> numsToNames = addValues();
+        System.out.println(reverse(numsToNames));
+    }
+
+    public static Map<String, Integer> reverse(Map<Integer, String> numsToNames) {
+        Map<String, Integer> namesToNums = new TreeMap<>();
+        // for each int in map
+        for (int num : numsToNames.keySet()) {
+            String name = numsToNames.get(num); // get String
+            if (!namesToNums.containsKey(name)) { // new key as String
+                namesToNums.put(name, num); // put num as value
+            } 
+        }
+        // return map
+        return namesToNums;
+    }
+
+    
+
+    // [ignore] private method for program setup
+    private static Map<Integer, String> addValues() {
+        Map<Integer, String> m = new TreeMap<>();
+        m.put(42, "Noah");
+        m.put(81, "Khadijah");
+        m.put(17, "Huy");
+        m.put(31, "Casey");
+        m.put(56, "Huy");
+        m.put(3, "Noah");
+        m.put(29, "Huy");
+        return m;
+    }
+}
