@@ -1,0 +1,53 @@
+import java.util.*;
+
+public class PlayingCards {
+
+    public static final String JOKER = "🃏";
+    
+    public static void main(String[] args) {
+        String playerHand = "K4Q644XQ";
+        String result = replaceMaxCard(playerHand);
+        System.out.println("Original Hand: " + playerHand);
+        System.out.println("Result: " + result);
+    }
+    
+    public static String replaceMaxCard(String playerHand) {
+        Map<String, Integer> cardCounts = new TreeMap<>();
+        // for each char in input String   
+        for (int i = 0; i < playerHand.length(); i++) {
+            String card = "" + playerHand.charAt(i);
+            // if not in map 
+            if (!cardCounts.containsKey(card)) {
+                cardCounts.put(card, 1);
+            } else {
+                int currentCount = cardCounts.get(card);
+                cardCounts.put(card, currentCount + 1);
+            }
+                // set count to 1
+            // if in map
+                // update count ++
+        }
+        // for each card in our map
+        int maxCount = 0;
+        String maxCard = "";
+        for (String card : cardCounts.keySet()) {
+            int count = cardCounts.get(card);
+            if (count > maxCount) {
+                maxCard = card;
+                maxCount = count;
+            }
+            // check to see if it's the max count
+                // if it is the max count -> update the count
+        }
+        String output = "";
+        for (int i = 0; i < playerHand.length(); i++) {
+            String current = "" + playerHand.charAt(i);
+            if (current.equals(maxCard)) {
+                output += JOKER;
+            } else {
+                output += current;
+            }
+        }
+        return output;
+    }
+}
