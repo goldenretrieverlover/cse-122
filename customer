@@ -1,0 +1,31 @@
+public class Customer {
+    private String name;
+    private int hungerLevel;
+
+    public Customer(String name, int hungerLevel) {
+        this.name = name;
+        this.hungerLevel = hungerLevel;
+    } // this is our constructor
+
+    public String getName() {
+        return this.name; // return name and this.name, either works
+        // unless local variable or parameter with same name,
+        // this is optional
+        // this dot (field) helps keep track of field
+    }
+
+    public boolean isHungry() {
+        return this.hungerLevel > 0;
+    }
+
+    // calls the isHungry method to see if isHungry
+    // if hungry throws IllegalStateException
+    // decrements hunger level
+    public void eat() {
+        if (!this.isHungry()) { /* calling own method in instance */
+            throw new IllegalStateException();
+        }
+        this.hungerLevel--;
+    }
+
+}
