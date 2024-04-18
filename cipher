@@ -1,0 +1,135 @@
+// int displacement = (int)input.charAt(0) - Cipher.MIN_CHAR;
+            // for (int j = 0; j < displacement; j++) {
+            //     queue.remove();
+            // }
+            // int result = queue.peek();
+            // secretCode += (char)result;
+            // for (int j = 0; j < shift - displacement; j++) {
+            //     queue.remove();
+            // }
+            // System.out.println(curr + " - curr ");
+            // System.out.println((int) curr + " - ascii number before");
+            // int displacement = ((int)(curr) + shift - (int)Cipher.MIN_CHAR);
+            // // if ((int)curr + shift > Cipher.MAX_CHAR) {
+            //     // System.out.println(displacement + " - displacement");
+            //     // secretCode += (char) ((Cipher.MIN_CHAR + (displacement - shift)));
+            //     // System.out.println((int) Cipher.MIN_CHAR + (displacement - shift + 1) + " - ascii number after");
+            //     // System.out.println((char) (Cipher.MIN_CHAR) + " - letter ");
+            //     // System.out.println(Cipher.MIN_CHAR + displacement + " - current ascii number");
+            //     // System.out.println((char) (Cipher.MIN_CHAR + displacement) + "- letter");
+            // // } else 
+            // // && (Cipher.MAX_CHAR == ((int) curr + shift) + 1)
+
+// } else {
+            // } else if () {
+            //     secretCode += (char) 
+            
+            // } else {
+            //     secretCode += (char) (curr + shift);
+            //     System.out.println((1) + " - ascii number after");
+            //     System.out.println((char) (curr + shift) + " - letter ");
+            // }
+            // // System.out.println((int)curr + " - current ascii number ");
+            // // int displacement = ((int)curr + shift) - Cipher.MIN_CHAR;
+            // // int displacement = ascii - (int)curr + shift;
+
+ // public String encrypt(String input) {
+    //     for (int i = 0; i < input.length(); i++) {
+    //         if (input.charAt(i) > Cipher.MAX_CHAR) {
+    //             throw new IllegalArgumentException("illegal chars detected");
+    //         }
+    //     }
+    //     String secretCode = "";
+    //     for (int i = 0; i < input.length(); i++) {
+    //         char curr = input.charAt(i);
+    //         System.out.println(curr + " - this is your curr");
+    //         if ((int)curr + shift > Cipher.MAX_CHAR) {
+    //             System.out.println(shift + " - this is your shift");
+    //             int displaced = ((int)curr + shift - Cipher.MAX_CHAR);
+    //             System.out.println((char)((Cipher.MIN_CHAR - num) + displaced) + " - giving you this");
+    //             secretCode += (char) ((Cipher.MIN_CHAR - num) + displaced);
+    //             System.out.println(Cipher.MIN_CHAR + " - ascii number after");
+    //             System.out.println((char) (Cipher.MIN_CHAR) + " - letter ");
+    //             System.out.println(secretCode);
+    //             System.out.println("testing entering if");
+    //          } else {
+    //             System.out.println("testing entering else");
+    //             System.out.println(secretCode);
+    //             secretCode += (char) (curr + shift);
+    //             System.out.println((char) (curr + shift) + "- letter");
+    //         }
+    //     }
+
+    //     return secretCode;
+
+    // }
+    
+    // //   Behavior: Applies this inverse of this Cipher's encryption scheme to 'input' (reversing
+    // //             a single round of encryption if previously applied), returning the result
+    // // Exceptions: None
+    // //    Returns: The result of applying the inverse of this Cipher's encryption scheme to `input`
+    // // Parameters: 'input' - the string to be decrypted
+    // public String decrypt(String input) {
+    //     String message = "";
+    //     for (int i = 0; i < input.length(); i++) {
+    //         if (input.charAt(i) > Cipher.MAX_CHAR) {
+    //             throw new IllegalArgumentException("illegal chars detected");
+    //         }
+    //     }
+    //     String secretCode = "";
+    //     for (int i = 0; i < input.length(); i++) {
+    //         char curr = input.charAt(i);
+    //         System.out.println(curr + " - this is your curr");
+    //         if ((int)curr + shift < Cipher.MIN_CHAR) {
+    //             System.out.println(shift + " - this is your shift");
+    //             int displaced = ((int)curr + shift + Cipher.MIN_CHAR);
+    //             System.out.println((char)((Cipher.MIN_CHAR - num) + displaced) + " - giving you this");
+    //             secretCode += (char) ((Cipher.MIN_CHAR - num) + displaced);
+    //             System.out.println(Cipher.MIN_CHAR + " - ascii number after");
+    //             System.out.println((char) (Cipher.MIN_CHAR) + " - letter ");
+    //             System.out.println(secretCode);
+    //             System.out.println("testing entering if");
+    //          } else {
+    //             System.out.println("testing entering else");
+    //             System.out.println(secretCode);
+    //             secretCode += (char) (curr + shift);
+    //             System.out.println((char) (curr + shift) + "- letter");
+    //         }
+    //     }
+    //     return message;
+    // }
+
+    // System.out.println("testing");
+    // (char)(Cipher.MIN_CHAR + i) = shifter.charAt(i);
+    // // how to get maximum character?
+    // how to get maximum character?
+    // System.out.println(letter + " - letter");
+
+// int shift
+            if (ciphers.get(i) = Substitution()) {
+                Substitution cipherSub = new Substitution(); 
+                if (decryptable.equals("")) {
+                    decryptable = cipherSub.encrypt(input);
+                } else {
+                    decryptable = cipherSub.encrypt(decryptable);
+                }
+
+            } else if (ciphers.get(i) = CaesarKey(key))  {
+                CaesarKey cipherKey = new CaesarKey();
+                if (decryptable.equals("")) {
+                    decryptable = cipherKey.encrypt(input);
+                } else {
+                    decryptable = cipherKey.encrypt(decryptable);
+                }
+            } else {
+                int shift = console.nextInt();
+                CaesarShift cipherShift = new CaesarShift(shift);
+                if (decryptable.equals("")) {
+                    decryptable = cipherShift.encrypt(input);
+                } else {
+                    decryptable = cipherShift.encrypt(decryptable);
+                }
+            }
+            int shift = 1;
+            CaesarShift caesarShift = new CaesarShift(shift);
+            CaesarKey caesarKey = new CaesarKey();
