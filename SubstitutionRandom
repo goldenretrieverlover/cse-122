@@ -1,0 +1,16 @@
+if (shifter.length() != Cipher.TOTAL_CHARS) {
+            throw new IllegalArgumentException("length doesn't match");
+        }
+        Set<Character> set = new HashSet<>();
+        for (int i = 0; i < shifter.length(); i++) {
+            char curr = shifter.charAt(i);
+            set.add(curr); 
+        }
+        if (set.size() < shifter.length()) {
+            throw new IllegalArgumentException("duplicate chars detected");
+        }
+        for (int i = 0; i < shifter.length(); i++) {
+            if (shifter.charAt(i) > Cipher.MAX_CHAR || shifter.charAt(i) < Cipher.MIN_CHAR) {
+                throw new IllegalArgumentException("illegal chars detected");
+            }
+        }
