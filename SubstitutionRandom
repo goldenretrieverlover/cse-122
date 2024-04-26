@@ -14,3 +14,39 @@ if (shifter.length() != Cipher.TOTAL_CHARS) {
                 throw new IllegalArgumentException("illegal chars detected");
             }
         }
+
+
+
+// @Override
+//     public String encrypt(String input) {
+//         if (shifter.equals("")) {
+//             throw new IllegalStateException();
+//         }
+//         String decryptable = "";
+//         for (int i = 0; i < input.length(); i++) {
+//             char letter = (shifter.charAt((int)(input.charAt(i)) - Cipher.MIN_CHAR));
+//             decryptable += letter; 
+//         }
+//         return decryptable;
+//     }
+
+//     @Override
+//     public String decrypt(String input) {
+    
+//         if (shifter.equals("")) {
+//             throw new IllegalStateException();
+//         }
+//         String message = "";
+//         for (int i = seeds.size(); i >= 0; i--) {
+            
+//         }
+//         for (int i = 0; i < input.length(); i++) {
+//             char letter = (char)(Cipher.MIN_CHAR + (shifter.indexOf(input.charAt(i))));
+//             System.out.println(letter);
+
+//                 message += letter;
+//         }
+//         return message;
+
+//     }
+
