@@ -48,5 +48,19 @@ if (shifter.length() != Cipher.TOTAL_CHARS) {
 //         }
 //         return message;
 
+
+this.queue = new LinkedList<>();
+            for (int j = 0; j < Cipher.TOTAL_CHARS; j++) {
+                this.queue.add(Cipher.MIN_CHAR + i);
+            }
+            for (int j = 0; j < seed; j++) {
+                int curr = this.queue.remove();
+                this.queue.add(curr);
+            }
+            while (!queue.isEmpty()) {
+                int curr = this.queue.remove();
+                this.shifter += (char)(curr) + "";
+            } 
+
 //     }
 
