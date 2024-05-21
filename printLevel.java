@@ -6,7 +6,18 @@ public class IntTree {
         if (target < 0) {
             throw new IllegalArgumentException();
         }
-        // TODO: Your code here
+        printLevel(overallRoot, target);
+    }
+
+    private void printLevel(IntTreeNode root, int target) {
+        if (root != null) {
+            int count = 0;
+            if (count == target) {
+                System.out.println(root.data);
+            }
+            printLevel(root.left, target - 1);
+            printLevel(root.right, target - 1); // the goal is always zero
+        }
     }
 
     public static void main(String[] args) {
